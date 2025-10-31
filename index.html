@@ -3,10 +3,10 @@
 
 <html>
 <head>
-  <title>4bamz Chiper Web (Web Version)</title>
+  <title>4bamz Cipher (Web Version)</title>
 </head>
 <body>
-  <h2>4bamz</h2>
+  <h2>4bamz Advanced Cipher</h2>
 
   <label>Mode: </label>
   <select id="mode">
@@ -65,7 +65,15 @@
       const key = document.getElementById('key').value;
       const text = document.getElementById('text').value;
       const output = cipher(text, key, mode);
-      document.getElementById('output').textContent = output;
+      const outputElement = document.getElementById('output');
+
+      if (mode === 'encrypt') {
+        outputElement.style.color = '#0ff'; 
+      } else {
+        outputElement.style.color = '#f0f'; 
+      }
+
+      outputElement.textContent = output;
     }
   </script>
 </body>
