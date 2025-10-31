@@ -60,21 +60,24 @@
       return result;
     }
 
-    function runCipher() {
-      const mode = document.getElementById('mode').value;
-      const key = document.getElementById('key').value;
-      const text = document.getElementById('text').value;
-      const output = cipher(text, key, mode);
-      const outputElement = document.getElementById('output');
+function runCipher() {
+  const mode = document.getElementById('mode').value;
+  const key = document.getElementById('key').value;
+  const text = document.getElementById('text').value;
+  const output = cipher(text, key, mode);
+  const outputElement = document.getElementById('output');
 
-      if (mode === 'encrypt') {
-        outputElement.style.color = '#0ff'; 
-      } else {
-        outputElement.style.color = '#f0f'; 
-      }
+  outputElement.style.removeProperty('color');
 
-      outputElement.textContent = output;
-    }
+  if (mode === 'encrypt') {
+    outputElement.style.setProperty('color', '#00ffff', 'important'); 
+  } else {
+    outputElement.style.setProperty('color', '#ff00ff', 'important'); 
+  }
+
+  outputElement.textContent = output;
+}
+
   </script>
 </body>
 </html>
