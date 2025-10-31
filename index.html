@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>4bamz Cipher (Web Version)</title>
+</head>
+<body>
+  <h2>4bamz Advanced Cipher</h2>
+
+  <label>Mode: </label>
+  <select id="mode">
+    <option value="encrypt">Encrypt</option>
+    <option value="decrypt">Decrypt</option>
+  </select>
+  <br><br>
+
+  <label>Key:</label>
+  <input type="text" id="key">
+  <br><br>
+
+  <label>Text:</label><br>
+  <textarea id="text" rows="5" cols="50"></textarea>
+  <br><br>
+
+  <button onclick="runCipher()">Run</button>
+
+  <h3>Output:</h3>
+  <pre id="output"></pre>
+
+  <script>
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const numLetters = letters.length;
+
+    function generateShifts(key) {
+      const shifts = [];
+      for (const ch of key.toLowerCase()) {
+        if (/[0-9]/.test(ch)) shifts.push(parseInt(ch));
+        else if (/[a-z]/.test(ch)) shifts.push(letters.indexOf(ch));
+      }
+      return shifts.length ? shifts : [0];
+    }
+
+    function cipher(text, key, mode) {
+      const shifts = generateShifts(key);
+      let result = '';
+      let keyIndex = 0;
+
+      for (const letter of text.toLowerCase()) {
+        if (letters.includes(letter)) {
+          const shift = shifts[keyIndex % shifts.length];
+          const index = letters.indexOf(letter);
+          const newIndex = (index + (mode === 'encrypt' ? shift : -shift) + numLetters) % numLetters;
+          result += letters[newIndex];
+          keyIndex++;
+        } else {
+          result += letter;
+        }
+      }
+      return result;
+    }
+
+    function runCipher() {
+      const mode = document.getElementById('mode').value;
+      const key = document.getElementById('key').value;
+      const text = document.getElementById('text').value;
+      const output = cipher(text, key, mode);
+      document.getElementById('output').textContent = output;
+    }
+  </script>
+</body>
+</html>
