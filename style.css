@@ -28,4 +28,5 @@ button:hover {
   padding: 10px;
   border: 1px solid #0f0;
   font-weight: bold;
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
 }
